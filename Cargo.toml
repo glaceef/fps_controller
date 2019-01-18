@@ -17,7 +17,7 @@ path = "src/lib.rs"
 [dependencies]
 
 [dev-dependencies]
-piston_window = "*"
+piston_window = "0.86.0"
 
 [[example]]
 name = "fps_test"
