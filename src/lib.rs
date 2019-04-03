@@ -48,8 +48,9 @@ impl FPSController {
         } else {
             self.extra_time += -sleep_time;
             while self.extra_time >= self.frame_time {
-                self.extra_time -= self.frame_time;
                 update();
+                self.frame_count += 1;
+                self.extra_time -= self.frame_time;
             }
         }
         let time = self.time.elapsed();
