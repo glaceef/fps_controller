@@ -10,6 +10,7 @@ pub struct FPSController {
 }
 
 impl FPSController {
+    /// Create a default struct for 60 fps.
     pub fn new() -> Self {
         Self::from_fps(60)
     }
@@ -30,7 +31,7 @@ impl FPSController {
         self.frame_count
     }
 
-    pub fn run<F: FnMut()>(&mut self, mut update: F) -> f64 {
+    pub fn run<F: FnMut(u64)>(&mut self, mut update: F) -> f64 {
         let time = self.time.elapsed();
         let time_as_millis = time.subsec_millis(); // 0 ~ 999
         let time_as_secs = time.as_secs(); // 0 ~
@@ -48,8 +49,8 @@ impl FPSController {
         } else {
             self.extra_time += -sleep_time;
             while self.extra_time >= self.frame_time {
-                update();
                 self.frame_count += 1;
+                update(self.frame_count);
                 self.extra_time -= self.frame_time;
             }
         }
